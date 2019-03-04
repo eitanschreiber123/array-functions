@@ -1,0 +1,17 @@
+{
+  "name": "array-functions",
+  "version": "1.0.0",
+  "description": "functions for arrays",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.11"
+  }
+}
