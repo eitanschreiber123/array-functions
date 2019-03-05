@@ -7,8 +7,7 @@ const flattenEverything = (...a) => a.flat().reduce((acc, val) => Array.isArray(
 const passAll = (value, ...cond) => flattenEverything(cond).map(i => i(value)).every(i => i);
 
 const chunkValues = (arr, ...val) => {
-  const r = [0];
-  const values = Array.from(flattenEverything(pushMultiple(val, arr.length / val.length)));
+  const r = [0], values = Array.from(flattenEverything(pushMultiple(val, arr.length / val.length)));
   for (let i = 0; i < values.length / val.length; i++) {
     r.push(values[i] + r[r.length - 1]);
   }
@@ -31,9 +30,7 @@ const levelAllCondition = (arr, initial, condition, first, second, ...amount) =>
   if (!amount[0]) {
     amount = 2;
   }
-  const allInitial = _.flow(...[initial]);
-  const allFirst = _.flow(...[first]);
-  const allSecond = _.flow(...[second]);
+  const allInitial = _.flow(...[initial]), allFirst = _.flow(...[first]), allSecond = _.flow(...[second]);
   return chunk(arr, amount).map(i => i.every(j => passAll(j, condition)) ? allFirst(allInitial(i)) : allSecond(allInitial(i)));
 }
 
@@ -41,9 +38,7 @@ const levelAnyCondition = (arr, initial, condition, first, second, ...amount) =>
   if (!amount[0]) {
     amount = 2;
   }
-  const allInitial = _.flow(...[initial]);
-  const allFirst = _.flow(...[first]);
-  const allSecond = _.flow(...[second]);
+  const allInitial = _.flow(...[initial]), allFirst = _.flow(...[first]), allSecond = _.flow(...[second]);
   return chunk(arr, amount).map(i => i.some(j => passAll(j, condition)) ? allFirst(allInitial(i)) : allSecond(allInitial(i)));
 }
 
@@ -93,8 +88,7 @@ const replaceAt = (arr, from, to) => {
 }
 
 const mapTwo = (arr, second, fn) => {
-  const result = [];
-  const smaller = Math.min(arr.length, second.length);
+  const result = [], smaller = Math.min(arr.length, second.length);
   for (var i = 0; i < smaller; i++) {
     result.push(fn(arr[i], second[i]));
   }
@@ -102,9 +96,7 @@ const mapTwo = (arr, second, fn) => {
 }
 
 const choice = (arr, initial, condition, first, second) => {
-  const allInitial = _.flow(...[initial]);
-  const allFirst = _.flow(...[first]);
-  const allSecond = _.flow(...[second]);
+  const allInitial = _.flow(...[initial]), allFirst = _.flow(...[first]), allSecond = _.flow(...[second]);
   return arr.map(i => i instanceof Array ? choice(i, initial, condition, func, second) : condition(allInitial(i)) ? allFirst(allInitial(i)) : allSecond(allInitial(i)));
 }
 
@@ -114,8 +106,7 @@ const overAmounts = (arr, fn, ...amount) => {
   if (!amount[0]) {
     amount = 2;
   }
-  const chunked = chunk(arr, amount);
-  const cycle = Array.from(flattenEverything(pushMultiple(fn, chunked.length)));
+  const chunked = chunk(arr, amount), cycle = Array.from(flattenEverything(pushMultiple(fn, chunked.length)));
   return chunked.map(i => cycle[chunked.indexOf(i)](i));
 }
 const overAmountsDown = (arr, fn, howMany = 1, ...amount) => {
