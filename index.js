@@ -97,7 +97,7 @@ const mapTwo = (arr, second, fn) => {
 
 const choice = (arr, initial, condition, first, second) => {
   const allInitial = _.flow(...[initial]), allFirst = _.flow(...[first]), allSecond = _.flow(...[second]);
-  return arr.map(i => i instanceof Array ? choice(i, initial, condition, func, second) : condition(allInitial(i)) ? allFirst(allInitial(i)) : allSecond(allInitial(i)));
+  return arr.map(i => i instanceof Array ? choice(i, initial, condition, func, second) : passAll(initial(i), condition) ? allFirst(allInitial(i)) : allSecond(allInitial(i)));
 }
 
 const takeAll = (arr, ...nth) => nth.some(i => i === 1) ? arr : arr.filter((e, i) => nth.some(j => i % j === j - 1));
