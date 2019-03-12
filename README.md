@@ -77,16 +77,32 @@ replaceAt([1,2,3,4,5,6,7,8,9,10,12,13,14,15], 0, 4);
 ```
 <br/><br/>
 ```
-mapTwo(arr, second, fn);
+mapTwo(arr, second, ...functions);
 ```
-calls fn() on each element of arr and second and returns an array of the results, stops at the shorter one
+calls functions() on each element of arr and second and returns an array of the results, stops at the shorter one
+if functions is more than one it will pass the value to each of the functions in order
+functions is called on both of the elements as an array not as individual arguments
 ```
 const add = (a, b) => a + b;
 
-mapTwo([1,2,3,4,5], [1,2,3,4,5,6,7], add);
+const double = n => n * 2;
 
-[2, 4, 6, 8, 10];
+mapTwo([1,2,3,4,5], [1,2,3,4,5,6,7], add, double);
+
+[4, 8, 12, 16, 20];
 ```
+<br/><br/>
+```
+mapTwoAll(arr, second, initial, condition, first, other);
+```
+calls 'initial' on each element of 'arr' and 'second' and then if both of the elements pass 'condition' then it calls 'first' on them otherwise it calls 'other'
+'initial', 'first', and 'other' are called on both elements as an array not as individual arguments
+'initial', 'condition', 'first', and 'other' can be one function or an array of functions in which case it will pass the value through each of the functions in order or for 'condition' it checks if it passes all of the functions 
+<br/><br/>
+```
+mapTwoAny(arr, second, initial, condition, first, other);
+```
+like mapTwoAll() except it checks if only one of the elements passes 'condition'
 <br/><br/>
 ```
 choice(arr, initial, condition, first, second);
