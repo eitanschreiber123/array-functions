@@ -113,7 +113,7 @@ const overAmounts = (arr, fn, ...amount) => {
   if (!amount[0]) {
     amount = 2;
   }
-  const cycle = Array.from(flattenEverything(pushMultiple(fn, chunked.length)));
+  const cycle = Array.from(flattenEverything(pushMultiple(fn, chunk(arr, amount).length)));
   return chunk(arr, amount).map(i => cycle[chunked.indexOf(i)](i));
 }
 const overAmountsDown = (arr, fn, howMany = 1, ...amount) => {
