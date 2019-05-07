@@ -7,7 +7,7 @@ const flattenEverything = (...a) => a.flat().reduce((acc, val) => Array.isArray(
 const passAll = (value, ...cond) => flattenEverything(cond).map(i => i(value)).every(i => i);
 
 const chunkValues = (arr, ...val) => {
-  const r = [0], values = Array.from(flattenEverything(pushMultiple(val, arr.length / val.length)));
+  const r = [0], values = flattenEverything(pushMultiple(val, arr.length / val.length));
   for (let i = 0; i < values.length / val.length; i++) {
     r.push(values[i] + r[r.length - 1]);
   }
